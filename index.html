@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Quote Machine</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+      $(document).ready(generateQuotes());
+      function generateQuotes(){
+        $.getJSON("http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?", function(data){
+          $("#text").html('"' + data.quoteText + '"');
+          $("#author").html('-' + data.quoteAuthor);
+
+          let randomColorIndex1 = Math.floor(Math.random() * 256);
+          let randomColorIndex2 = Math.floor(Math.random() * 256);
+          let randomColorIndex3 = Math.floor(Math.random() * 256);
+          let rgbString = "rgb(" + randomColorIndex1 + ", " + randomColorIndex2 + ", " + randomColorIndex3 + ")";
+
+          $("body").css("background-color", rgbString);
+          $("#text").css("color", rgbString);
+          $("#author").css("color", rgbString);
+          $("#new-quote").css("background-color", rgbString);
+          $("#tweet-quote").css("background-color", rgbString);
+
+          $("#tweet-quote").click(function(){
+            window.open("https://twitter.com/intent/tweet?text=" + data.quoteText + "-" + data.quoteAuthor, "_blank");
+          });      
+        }); 
+      }      
+  </script> 
+  <style>
+    .quote-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        flex-direction: column;
+    }
+
+    #quote-box{
+        display: flex;
+        width: 60%;
+        border: 3px solid white;
+        border-radius: 25px; 
+        padding: 30px 30px;
+        font-size: 30px;
+        background-color: white;
+        font-family: "Sofia", sans-serif;
+        flex-direction: column;
+    }
+
+    #author{
+        display: flex;
+        justify-content: flex-end;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 20px;
+        margin-top: 20px;
+        white-space: nowrap;
+    }
+    
+    .buttons{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        /* flex-wrap: wrap; */
+    }
+
+    #new-quote, #tweet-quote{ 
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 20px;
+        outline: none;
+        margin-top: 25px;
+        border: none;
+    }
+
+    #footer{
+        color: white;
+        margin-top: 20px;
+    } 
+
+    @media only screen and (max-width: 540px){
+      .buttons{
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      #quote-box{
+        width: 80%;
+      }
+      #new-quote, #tweet-quote{ 
+        margin: 10px;
+      }
+    }
+
+    @media only screen and (max-width: 360px){
+        #quote-box{
+          font-size: 20px;
+        }
+        #author, #new-quote, #tweet-quote{
+          font-size: 12px;
+        }
+    }
+  </style>
+</head>
+
+<body class="quote-container">
+    <div id="quote-box">
+        <div id="text"></div>
+        <div id="author"></div>
+        <div class="buttons">
+          <a type="button" class="btn btn-primary" id="tweet-quote" target = "_blank">Tweet Quote</a> 
+          <button class="btn btn-primary" id="new-quote" onclick="generateQuotes()">New Quote</button>
+        </div>
+    </div>
+    <div id="footer">By Lydia</div>
+</body>
+     
+</html>
