@@ -1,0 +1,74 @@
+.quote-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  flex-direction: column;
+}
+
+#quote-box {
+  display: flex;
+  width: 60%;
+  border: 3px solid white;
+  border-radius: 25px;
+  padding: 30px 30px;
+  font-size: 30px;
+  background-color: white;
+  font-family: "Sofia", sans-serif;
+  flex-direction: column;
+}
+
+#author {
+  display: flex;
+  justify-content: flex-end;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+  margin-top: 20px;
+  white-space: nowrap;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#new-quote,
+#tweet-quote {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+  outline: none;
+  margin-top: 25px;
+  border: none;
+}
+
+#footer {
+  color: white;
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 540px) {
+  .buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  #quote-box {
+    width: 80%;
+  }
+  #new-quote,
+  #tweet-quote {
+    margin: 10px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  #quote-box {
+    font-size: 20px;
+  }
+  #author,
+  #new-quote,
+  #tweet-quote {
+    font-size: 12px;
+  }
+}
